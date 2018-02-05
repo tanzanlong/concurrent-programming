@@ -10,10 +10,15 @@ public class LockSimple {
 	  */
 	Lock lock=new ReentrantLock();
 	lock.lock(); 
+	System.out.println(" first lock");
+	lock.lock();
+	System.out.println(" second lock");
 	try{
 		
 	}catch(Exception e){
 		lock.unlock();
 	}
+	lock.lock();
 }
 }
+
