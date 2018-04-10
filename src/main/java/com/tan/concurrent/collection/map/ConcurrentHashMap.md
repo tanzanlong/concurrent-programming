@@ -18,9 +18,29 @@
 
  分段锁：http://ifeve.com/concurrenthashmap/
  
- ConcurrentHashMap是由Segment数组结构和HashEntry数组结构组成。Segment是一种可重入锁ReentrantLock，在ConcurrentHashMap里扮演锁的角色，HashEntry则用于存储键值对数据。一个ConcurrentHashMap里包含一个Segment数组，Segment的结构和HashMap类似，是一种数组和链表结构， 一个Segment里包含一个HashEntry数组，每个HashEntry是一个链表结构的元素， 每个Segment守护者一个HashEntry数组里的元素,当对HashEntry数组的数据进行修改时，必须首先获得它对应的Segment锁。 
+ ConcurrentHashMap是由Segment数组结构和HashEntry数组结构组成。Segment是一种可重入锁ReentrantLock，在ConcurrentHashMap里扮演锁的角色，HashEntry则用于存储键值对数据。一个ConcurrentHashMap里包含一个Segment数组，Segment的结构和HashMap类似，是一种数组和链表结构， 一个Segment里包含一个HashEntry数组，每个HashEntry是一个链表结构的元素， 每个Segment守护者一个HashEntry数组里的元素,当对HashEntry数组的数据进行修改时，必须首先获得它对应的Segment锁。
+ 
+ put和remove操作发生的同时，读取操作不会被阻塞，读取操作会读取到最新更新操作完成后的结果集。聚合操作，像putAll和clear可能会获得insert或者remov掉一部分后的结果集。类似的，iterator/enumeration操作获得的结果集也是某个时间点或者iterator/enumeration创建时的结果集。但是它不会抛 ConcurrentModificationException异常。但是iterators被设计为单线程访问的。你需要选择一个合适的concurrencyLevel，太大会导致空间浪费，太小会导致线程对资源的竞争。不过一个数据级下的差异不会有太大影响。如果确定只有一个线程做更新操作，其他线程都是读操作，我们推荐把这个值设为1，对hash table的扩容操作都是相对耗时的，所以最好我们对实际情况做一个评估，在构造器里面给一个评估值。不允许null作为key或者value。
+  
+  获取操作put解读：
+  
+  
+  
 
   数组+链表+红黑树 ：http://cmsblogs.com/?p=2283
+  
+  
+  
+  
+ ConcurrentHashMap的弱一致 http://ifeve.com/concurrenthashmap-weakly-consistent/？
+ 
+ ConcurrentHashMap迭代器为什么不抛出ConcurrentModificationException异常，即fail-fast机制？
+ 
+ ConcurrentHashMap扩容机制？
+ 
+ ConcurrentHashMap优化？
+ 
+ 
 
 
 
