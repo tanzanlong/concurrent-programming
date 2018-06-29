@@ -1,4 +1,4 @@
-package com.tan.concurrent.juc.locks;
+package com.tan.concurrent.juc.locks.readwritelock;
 
 import java.util.Map;
 import java.util.TreeMap;
