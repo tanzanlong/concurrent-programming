@@ -1,4 +1,4 @@
-package com.tan.concurrent.thread;
+package com.tan.concurrent.thread.suspendresume;
 
 public class SuspendAndResume {
 	
